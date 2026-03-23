@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CarsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="int" Nullable="false" />
+          <Property Name="numSeats" Type="int" Nullable="false" />
+          <Property Name="level" Type="int" Nullable="false" />
+          <Property Name="priceForDay" Type="float" Nullable="false" />
+          <Property Name="priceForThreeDaysAndMore" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="codeCity" Type="int" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="numRents" Type="int" Nullable="false" />
+          <Property Name="codePayment" Type="int" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="int" Nullable="false" />
+          <Property Name="creaditCard" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="validity" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cvc" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rents">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="int" Nullable="false" />
+          <Property Name="codeCustomer" Type="int" Nullable="false" />
+          <Property Name="codeCar" Type="int" Nullable="false" />
+          <Property Name="startDate" Type="datetime" Nullable="false" />
+          <Property Name="endDate" Type="datetime" Nullable="false" />
+          <Property Name="goal" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Customers_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="codeCity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_Payments">
+          <End Role="Payments" Type="Self.Payments" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payments">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="codePayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rents_Cars">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+          <End Role="Rents" Type="Self.Rents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Rents">
+              <PropertyRef Name="codeCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rents_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Rents" Type="Self.Rents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rents">
+              <PropertyRef Name="codeCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarsDBModelStoreContainer">
+          <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rents" EntityType="Self.Rents" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Customers_Cities" Association="Self.FK_Customers_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_Payments" Association="Self.FK_Customers_Payments">
+            <End Role="Payments" EntitySet="Payments" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rents_Cars" Association="Self.FK_Rents_Cars">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Rents" EntitySet="Rents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rents_Customers" Association="Self.FK_Rents_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Rents" EntitySet="Rents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarsDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CarsDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cars" EntityType="CarsDBModel.Cars" />
+          <EntitySet Name="Cities" EntityType="CarsDBModel.Cities" />
+          <EntitySet Name="Payments" EntityType="CarsDBModel.Payments" />
+          <EntitySet Name="Rents" EntityType="CarsDBModel.Rents" />
+          <AssociationSet Name="FK_Rents_Cars" Association="CarsDBModel.FK_Rents_Cars">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Rents" EntitySet="Rents" />
+          </AssociationSet>
+          <EntitySet Name="Customers" EntityType="CarsDBModel.Customers" />
+          <AssociationSet Name="FK_Customers_Cities" Association="CarsDBModel.FK_Customers_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_Payments" Association="CarsDBModel.FK_Customers_Payments">
+            <End Role="Payments" EntitySet="Payments" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rents_Customers" Association="CarsDBModel.FK_Rents_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Rents" EntitySet="Rents" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="Int32" Nullable="false" />
+          <Property Name="numSeats" Type="Int32" Nullable="false" />
+          <Property Name="level" Type="Int32" Nullable="false" />
+          <Property Name="priceForDay" Type="Double" Nullable="false" />
+          <Property Name="priceForThreeDaysAndMore" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Rents" Relationship="CarsDBModel.FK_Rents_Cars" FromRole="Cars" ToRole="Rents" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customers" Relationship="CarsDBModel.FK_Customers_Cities" FromRole="Cities" ToRole="Customers" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="Int32" Nullable="false" />
+          <Property Name="creaditCard" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="validity" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cvc" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="CarsDBModel.FK_Customers_Payments" FromRole="Payments" ToRole="Customers" />
+        </EntityType>
+        <EntityType Name="Rents">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="Int32" Nullable="false" />
+          <Property Name="codeCustomer" Type="Int32" Nullable="false" />
+          <Property Name="codeCar" Type="Int32" Nullable="false" />
+          <Property Name="startDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="endDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="goal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cars" Relationship="CarsDBModel.FK_Rents_Cars" FromRole="Rents" ToRole="Cars" />
+          <NavigationProperty Name="Customers" Relationship="CarsDBModel.FK_Rents_Customers" FromRole="Rents" ToRole="Customers" />
+        </EntityType>
+        <Association Name="FK_Rents_Cars">
+          <End Type="CarsDBModel.Cars" Role="Cars" Multiplicity="1" />
+          <End Type="CarsDBModel.Rents" Role="Rents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Rents">
+              <PropertyRef Name="codeCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="codeCity" Type="Int32" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="numRents" Type="Int32" Nullable="false" />
+          <Property Name="codePayment" Type="Int32" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Cities" Relationship="CarsDBModel.FK_Customers_Cities" FromRole="Customers" ToRole="Cities" />
+          <NavigationProperty Name="Payments" Relationship="CarsDBModel.FK_Customers_Payments" FromRole="Customers" ToRole="Payments" />
+          <NavigationProperty Name="Rents" Relationship="CarsDBModel.FK_Rents_Customers" FromRole="Customers" ToRole="Rents" />
+        </EntityType>
+        <Association Name="FK_Customers_Cities">
+          <End Type="CarsDBModel.Cities" Role="Cities" Multiplicity="0..1" />
+          <End Type="CarsDBModel.Customers" Role="Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="codeCity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_Payments">
+          <End Type="CarsDBModel.Payments" Role="Payments" Multiplicity="0..1" />
+          <End Type="CarsDBModel.Customers" Role="Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payments">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="codePayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rents_Customers">
+          <End Type="CarsDBModel.Customers" Role="Customers" Multiplicity="1" />
+          <End Type="CarsDBModel.Rents" Role="Rents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rents">
+              <PropertyRef Name="codeCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarsDBModelStoreContainer" CdmEntityContainer="CarsDBEntities">
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="CarsDBModel.Cars">
+              <MappingFragment StoreEntitySet="Cars">
+                <ScalarProperty Name="priceForThreeDaysAndMore" ColumnName="priceForThreeDaysAndMore" />
+                <ScalarProperty Name="priceForDay" ColumnName="priceForDay" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="numSeats" ColumnName="numSeats" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="CarsDBModel.Cities">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="CarsDBModel.Payments">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="cvc" ColumnName="cvc" />
+                <ScalarProperty Name="validity" ColumnName="validity" />
+                <ScalarProperty Name="creaditCard" ColumnName="creaditCard" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rents">
+            <EntityTypeMapping TypeName="CarsDBModel.Rents">
+              <MappingFragment StoreEntitySet="Rents">
+                <ScalarProperty Name="goal" ColumnName="goal" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="codeCar" ColumnName="codeCar" />
+                <ScalarProperty Name="codeCustomer" ColumnName="codeCustomer" />
+                <ScalarProperty Name="code" ColumnName="code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="CarsDBModel.Customers">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="codePayment" ColumnName="codePayment" />
+                <ScalarProperty Name="numRents" ColumnName="numRents" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="codeCity" ColumnName="codeCity" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
