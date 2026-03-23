@@ -1,0 +1,128 @@
+/* ===================================================
+   About Component
+   =================================================== */
+
+.about-container {
+  max-width: 720px;
+  margin: 0 auto;
+  animation: fadeInUp 0.4s ease;
+}
+
+/* ===== Header ===== */
+.about-header {
+  text-align: center;
+  margin-bottom: 36px;
+  padding: 40px 24px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-radius: var(--radius-xl);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+  animation: pulse 6s ease-in-out infinite;
+}
+
+.about-header h2 {
+  font-size: 1.75rem;
+  color: var(--white);
+  position: relative;
+  z-index: 1;
+}
+
+.about-header .subtitle {
+  font-size: 1.05rem;
+  opacity: 0.85;
+  margin-top: 8px;
+  font-weight: 300;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Content ===== */
+.about-content {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: 36px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray-200);
+}
+
+.about-content > p:first-of-type {
+  font-size: 1.05rem;
+  color: var(--gray-600);
+  line-height: 1.85;
+  margin-bottom: 28px;
+}
+
+.about-content h3 {
+  color: var(--primary-dark);
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+}
+
+.about-content ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 32px;
+}
+
+.about-content ul li {
+  padding: 14px 20px;
+  margin-bottom: 10px;
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+  border-right: 3px solid var(--accent);
+  font-size: 0.95rem;
+  color: var(--gray-700);
+  transition: all var(--transition-fast);
+}
+
+.about-content ul li:hover {
+  background: var(--primary-bg);
+  border-right-color: var(--primary);
+  transform: translateX(-4px);
+}
+
+.about-content ul li strong {
+  color: var(--gray-800);
+}
+
+/* ===== Contact Info ===== */
+.contact-info {
+  padding: 28px;
+  background: linear-gradient(135deg, var(--primary-bg), rgba(76, 175, 80, 0.05));
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(43, 124, 181, 0.1);
+}
+
+.contact-info h4 {
+  color: var(--primary-dark);
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+.contact-info p {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .about-content {
+    padding: 24px 20px;
+  }
+
+  .about-header {
+    padding: 32px 20px;
+  }
+}

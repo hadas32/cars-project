@@ -1,0 +1,153 @@
+/* ===================================================
+   App Component (Main Layout + Navigation)
+   =================================================== */
+
+.main-app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Navigation Bar ===== */
+.app-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 72px;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.app-logo {
+  height: 100px;
+  width: auto;
+  margin: 20px;
+  object-fit: contain;
+  transition: transform var(--transition-normal);
+}
+
+.app-logo:hover {
+  transform: scale(1.05);
+}
+
+.user-greeting {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  padding: 6px 16px;
+  background: var(--primary-bg);
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(43, 124, 181, 0.15);
+}
+
+/* ===== Nav Buttons ===== */
+.nav-buttons {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.nav-buttons button {
+  font-family: 'Rubik', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.nav-buttons button:hover {
+  background: var(--gray-100);
+  color: var(--primary);
+}
+
+.nav-buttons button.active {
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(43, 124, 181, 0.3);
+}
+
+/* ===== Content Area ===== */
+.content-area {
+  flex: 1;
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ===== Main Action Button ===== */
+.main-action-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.btn-massive-rent {
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 16px 48px;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: var(--white);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-massive-rent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(76, 175, 80, 0.4);
+}
+
+.btn-massive-rent:active {
+  transform: translateY(0);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .app-bar {
+    flex-direction: column;
+    height: auto;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .nav-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-buttons button {
+    font-size: 0.82rem;
+    padding: 8px 14px;
+  }
+
+  .content-area {
+    padding: 20px 16px;
+  }
+}

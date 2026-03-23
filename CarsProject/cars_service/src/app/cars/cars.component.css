@@ -1,0 +1,78 @@
+/* ===================================================
+   Single Car Card Component
+   =================================================== */
+
+.car {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  animation: fadeInUp 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.car::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+  border-radius: 0 0 0 var(--radius-sm);
+}
+
+.car:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(43, 124, 181, 0.2);
+}
+
+.car > div {
+  padding: 8px 0;
+  font-size: 0.95rem;
+  color: var(--gray-700);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.car > div:not(:last-of-type) {
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.car strong {
+  color: var(--gray-800);
+  font-weight: 600;
+  min-width: 140px;
+}
+
+/* ===== Select Car Button ===== */
+.btn-select {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: 'Rubik', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: var(--white);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: 0 2px 8px rgba(43, 124, 181, 0.2);
+}
+
+.btn-select:hover {
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  box-shadow: 0 4px 16px rgba(43, 124, 181, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-select:active {
+  transform: translateY(0);
+}

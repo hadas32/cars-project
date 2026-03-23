@@ -1,0 +1,26 @@
+<div class="history-container" *ngIf="user">
+  <h2>היסטורית ההשכרות של {{ user.firstName }} {{ user.lastName }}</h2>
+  
+  <div *ngIf="rents.length === 0" class="no-rents">
+    <p>עדיין לא ביצעת השכרות במערכת.</p>
+  </div>
+
+  <table *ngIf="rents.length > 0" class="rents-table">
+    <thead>
+      <tr>
+        <th>קוד רכב</th>
+        <th>תאריך התחלה</th>
+        <th>תאריך חזרה</th>
+        <th>מטרה</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rent of rents">
+        <td>{{ rent.codeCar }}</td>
+        <td>{{ rent.startDate | date:'dd/MM/yyyy' }}</td>
+        <td>{{ rent.endDate | date:'dd/MM/yyyy' }}</td>
+        <td>{{ rent.goal || 'לא צוין' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

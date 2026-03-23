@@ -1,0 +1,54 @@
+<div class="login-container">
+  <h2>{{ isLoginMode ? 'התחברות' : 'הרשמה' }}</h2>
+  
+  <form (ngSubmit)="onSubmit()" #f="ngForm">
+    
+    <div *ngIf="!isLoginMode">
+      <div>
+        <label>שם פרטי:</label>
+        <input type="text" [(ngModel)]="userModel.firstName" name="firstName" required>
+      </div>
+      
+      <div>
+        <label>שם משפחה:</label>
+        <input type="text" [(ngModel)]="userModel.lastName" name="lastName" required>
+      </div>
+
+      <div>
+        <label>כתובת (רחוב ומספר):</label>
+        <input type="text" [(ngModel)]="userModel.address" name="address" required placeholder="לדוגמה: רבי עקיבא 50">
+      </div>
+
+      <div>
+        <label>עיר:</label>
+        <select [(ngModel)]="userModel.codeCity" name="codeCity" required 
+                style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px;">
+            <option [ngValue]="null" disabled>--- בחר עיר ---</option>
+            <option *ngFor="let c of cities" [value]="c.code">
+                {{ c.name }}
+            </option>
+        </select>
+      </div>
+    </div>
+
+    <div>
+      <label>אימייל:</label>
+      <input type="email" [(ngModel)]="userModel.email" name="email" required email>
+    </div>
+
+    <div>
+      <label>סיסמה:</label>
+      <input type="password" [(ngModel)]="userModel.password" name="password" required minlength="4">
+    </div>
+
+    <br>
+    <button type="submit" [disabled]="!f.valid">
+        {{ isLoginMode ? 'התחבר' : 'הירשם' }}
+    </button>
+  </form>
+
+  <hr>
+  <button type="button" (click)="onSwitchMode()">
+    {{ isLoginMode ? 'אין לך חשבון? הירשם כאן' : 'יש לך כבר חשבון? התחבר' }}
+  </button>
+</div>

@@ -1,0 +1,34 @@
+<app-login *ngIf="!currentUser" (loginSuccess)="onUserLogin($event)"></app-login>
+
+<div *ngIf="currentUser" class="main-app-container">
+
+  <nav class="app-bar">
+    <div class="brand-section">
+<img src="לוגו.png" alt="EasyRide Logo" class="app-logo">
+      <div class="user-greeting">שלום, {{ currentUser.firstName }}</div>
+    </div>
+    <div class="nav-buttons">
+      <button (click)="switchTab('history')" [class.active]="currentTab === 'history'">היסטורית ההשכרות</button>
+      <button (click)="switchTab('newRent')" [class.active]="currentTab === 'newRent'">השכרה חדשה</button>
+      <button (click)="switchTab('profile')" [class.active]="currentTab === 'profile'">עדכון פרטים</button>
+      <button (click)="switchTab('about')" [class.active]="currentTab === 'about'">אודות</button>
+    </div>
+  </nav>
+
+  <div class="content-area">
+
+    <app-rental-history *ngIf="currentTab === 'history'" [user]="currentUser"></app-rental-history>
+
+    <div class="main-action-container" *ngIf="currentTab === 'history'">
+      <button class="btn-massive-rent" (click)="switchTab('newRent')">
+        + הוסף השכרה חדשה
+      </button>
+    </div>
+    <app-display-cars *ngIf="currentTab === 'newRent'" [user]="currentUser"></app-display-cars>
+
+    <app-profile-update *ngIf="currentTab === 'profile'" [user]="currentUser"></app-profile-update>
+
+    <app-about *ngIf="currentTab === 'about'"></app-about>
+  </div>
+
+</div>

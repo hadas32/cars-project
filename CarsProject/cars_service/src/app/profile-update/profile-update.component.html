@@ -1,0 +1,48 @@
+<div class="update-container" *ngIf="user">
+  <h2>עדכון פרטים אישיים</h2>
+
+  <form (ngSubmit)="onSubmit()" #f="ngForm" class="update-form">
+    
+    <div class="form-group">
+      <label>שם פרטי:</label>
+      <input type="text" [(ngModel)]="editedUser.firstName" name="firstName" required>
+    </div>
+
+    <div class="form-group">
+      <label>שם משפחה:</label>
+      <input type="text" [(ngModel)]="editedUser.lastName" name="lastName" required>
+    </div>
+
+    <div class="form-group">
+      <label>כתובת (רחוב ומספר):</label>
+      <input type="text" [(ngModel)]="editedUser.address" name="address" required>
+    </div>
+
+    <div class="form-group">
+      <label>עיר:</label>
+      <select [(ngModel)]="editedUser.codeCity" name="codeCity" required>
+        <option [ngValue]="null" disabled>--- בחר עיר ---</option>
+        <option *ngFor="let c of cities" [value]="c.code">
+            {{ c.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>אימייל (שם משתמש):</label>
+      <input type="email" [(ngModel)]="editedUser.email" name="email" required email disabled title="לא ניתן לשנות אימייל">
+    </div>
+
+    <div class="form-group">
+      <label>סיסמה:</label>
+      <input type="text" [(ngModel)]="editedUser.password" name="password" required minlength="4">
+    </div>
+
+    <button type="submit" [disabled]="!f.valid">שמור שינויים</button>
+  </form>
+
+  <div *ngIf="message" class="message-box">
+    {{ message }}
+  </div>
+
+</div>

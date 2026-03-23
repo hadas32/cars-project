@@ -1,0 +1,22 @@
+<div class="car" *ngIf="car"> 
+   <div>
+       <strong>מספר רכב:</strong> {{ car.code }} </div>
+
+   <div>
+       <strong>מספר מושבים:</strong> {{ car.numSeats }}
+   </div>
+
+   <div>
+       <strong>מחיר ליום:</strong> {{ car.priceForDay }} ₪
+   </div>
+
+   <div>
+       <strong>מחיר ל-3 ימים ומעלה:</strong> {{ car.priceForThreeDaysAndMor }} ₪
+   </div>
+
+   <div>
+       <strong>רמה:</strong> {{ car.level }}
+   </div>
+   <br>
+   <button (click)="onSelectCar()" class="btn-select">השכר רכב זה</button>
+</div>

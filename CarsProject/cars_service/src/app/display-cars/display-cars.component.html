@@ -1,0 +1,75 @@
+<h1>כל הרכבים שבמאגר</h1>
+
+<h1>מאגר הרכבים שלנו</h1>
+
+<div class="filters-bar" *ngIf="!selectedCar">
+  <div class="filter-group">
+    <label>מספר מושבים:</label>
+    <input type="number" [(ngModel)]="filterSeats" (ngModelChange)="applyFilters()" placeholder="לדוג' 5">
+  </div>
+
+  <div class="filter-group">
+    <label>רמת רכב:</label>
+    <input type="number" [(ngModel)]="filterLevel" (ngModelChange)="applyFilters()" placeholder="לדוג' 1">
+  </div>
+
+  <div class="filter-group">
+    <label>מחיר מקסימלי ליום:</label>
+    <input type="number" [(ngModel)]="maxPrice" (ngModelChange)="applyFilters()" placeholder="עד מחיר...">
+  </div>
+
+  <button class="btn-clear" (click)="clearFilters()">נקה סינון</button>
+</div>
+
+<div class="cars-container" *ngIf="!selectedCar">
+    <h3 *ngIf="filteredArr.length === 0" class="no-results">לא נמצאו רכבים התואמים לחיפוש שלך...</h3>
+    <app-cars *ngFor="let car of filteredArr" [car]="car" (carSelected)="onCarPicked($event)">
+    </app-cars>
+</div>
+
+
+<div *ngIf="selectedCar" class="rent-form-container">
+    <div class="header-actions">
+        <h3>בחרת להשכיר רכב מספר: {{ selectedCar.code }} (רמה {{ selectedCar.level }})</h3>
+        <button type="button" (click)="selectedCar = null" class="btn-back">חזור לרשימת הרכבים</button>
+    </div>
+
+    <form (ngSubmit)="onSubmitRent()" #rentForm="ngForm" class="rent-form">
+        
+        <h4>פרטי ההשכרה</h4>
+        <div class="form-group">
+            <label>תאריך התחלה:</label>
+            <input type="date" [(ngModel)]="rentModel.startDate" name="startDate" required>
+        </div>
+        
+        <div class="form-group">
+            <label>תאריך חזרה:</label>
+            <input type="date" [(ngModel)]="rentModel.endDate" name="endDate" required>
+        </div>
+        
+        <div class="form-group">
+            <label>מטרת הנסיעה (אופציונלי):</label>
+            <input type="text" [(ngModel)]="rentModel.goal" name="goal" placeholder="למשל: נסיעת עסקים, טיול...">
+        </div>
+
+        <hr>
+
+        <h4>פרטי תשלום</h4>
+        <div class="form-group">
+            <label>מספר אשראי:</label>
+            <input type="text" [(ngModel)]="paymentModel.creaditCard" name="creaditCard" required minlength="16" maxlength="16">
+        </div>
+        
+        <div class="form-group">
+            <label>תוקף (MM/YY):</label>
+            <input type="text" [(ngModel)]="paymentModel.validity" name="validity" required placeholder="12/26">
+        </div>
+        
+        <div class="form-group">
+            <label>CVC (3 ספרות בגב הכרטיס):</label>
+            <input type="number" [(ngModel)]="paymentModel.cvc" name="cvc" required>
+        </div>
+
+        <button type="submit" [disabled]="!rentForm.valid" class="btn-submit">בצע תשלום והשכר</button>
+    </form>
+</div>
